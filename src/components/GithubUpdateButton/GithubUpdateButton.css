@@ -1,0 +1,13 @@
+.GithubUpdateButton {
+  padding: 0.5em;
+  background-color: blue;
+  color: white;
+  border-width: 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.GithubUpdateButton.updating {
+  background-color: #545454;
+  cursor: auto;
+}

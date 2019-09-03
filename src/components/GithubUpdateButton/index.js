@@ -4,6 +4,8 @@ import "./GithubUpdateButton.css"
 import { connect } from "react-redux"
 import { startUpdating, setGithubStatus } from "../../actions/github"
 
+const API_URL = "https://kctbh9vrtdwd.statuspage.io/api/v2/status.json"
+
 class GithubUpdateButton extends React.Component {
   componentDidMount() {
     this.props.update()
@@ -11,8 +13,9 @@ class GithubUpdateButton extends React.Component {
 
   render() {
     const { isUpdating, update, className, style } = this.props
+    const submitClassName = classNames("GithubUpdateButton", className, { updating: isUpdating })
     return (
-      <button className={classNames("GithubUpdateButton", className, { updating: isUpdating })} style={style} onClick={update} disabled={isUpdating}>
+      <button className={submitClassName} style={style} onClick={update} disabled={isUpdating}>
         {isUpdating ? 'Updating...' : 'Update'}
       </button>
     )
@@ -26,7 +29,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   update: () => {
     dispatch(startUpdating())
-    fetch("https://kctbh9vrtdwd.statuspage.io/api/v2/status.json")
+    fetch(API_URL)
       .then((res) => {
         if (res.ok) {
           return res.json()
@@ -43,4 +46,7 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(GithubUpdateButton)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GithubUpdateButton)

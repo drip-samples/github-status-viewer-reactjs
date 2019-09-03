@@ -20,4 +20,7 @@ const mapStateToProps = state => ({
   lastUpdated: state.github.lastUpdated,
 })
 
-export default connect(mapStateToProps, null)(GithubStatus)
+export default connect(
+  mapStateToProps,
+  null
+)(GithubStatus)
